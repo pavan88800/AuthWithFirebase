@@ -1,44 +1,54 @@
+import {
+  USER_LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+} from '../../utils/actionTypes'
+
 interface User {
-  user: string;
-  isLoading: boolean;
-  isAuthenticated: null;
+  user: string
+  isLoading: boolean
+  isAuthenticated: null
 }
 
 const initialState: User = {
-  user: "",
+  user: '',
   isLoading: true,
-  isAuthenticated: null
-};
+  isAuthenticated: null,
+}
+interface Action {
+  type:string
+  payload:any
+}
 
-const userInformation = (state: User = initialState, action: any) => {
-  const { type, payload } = action;
+
+const userInformation = (state: User = initialState, action: Action) => {
+  const { type, payload } = action
   switch (type) {
-    case "USER_LOGIN_REQUEST":
+    case USER_LOGIN_REQUEST:
       return {
         ...state,
-        isLoading: true
-      };
-    case "LOGIN_SUCCESS":
+        isLoading: true,
+      }
+    case LOGIN_SUCCESS:
       return {
         ...state,
         ...payload,
         loading: false,
         user: payload,
-        isAuthenticated: true
-      };
+        isAuthenticated: true,
+      }
 
-    case "LOGIN_FAIL":
+    case LOGIN_FAIL:
       return {
         ...state,
         loading: false,
         error: payload.errors,
-        isAuthenticated:false,
-        user:''
-      };
-
+        isAuthenticated: false,
+        user: '',
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default userInformation;
+export default userInformation

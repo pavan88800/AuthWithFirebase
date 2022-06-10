@@ -1,16 +1,23 @@
-export function userRegister(data: any) {
-  console.log(data,'data');
-  return {
-    type: "USER_REGISTER_REQUEST",
-    payload: data
-  };
+import {
+  USER_LOGIN_REQUEST,
+  USER_REGISTER_REQUEST,
+} from '../../utils/actionTypes'
+
+type FormData = {
+  email: string
+  password: string
 }
 
-export function userLogin(data: any) {
-    console.log(data,'data');
-    return {
-      type: "USER_LOGIN_REQUEST",
-      payload: data
-    };
+export function userRegister(data: FormData) {
+  return {
+    type: USER_REGISTER_REQUEST,
+    payload: data,
   }
-  
+}
+
+export function userLogin(data: FormData) {
+  return {
+    type: USER_LOGIN_REQUEST,
+    payload: data,
+  }
+}

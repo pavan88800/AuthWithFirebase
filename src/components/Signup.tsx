@@ -1,48 +1,54 @@
-import React, { FC, useState } from "react";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
-import { useDispatch, useSelector } from "react-redux";
-import { userRegister } from "../redux/actions/authaction";
-import { Link, Navigate } from "react-router-dom";
+import React, { FC, useState } from 'react'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import Container from '@material-ui/core/Container'
+import { useDispatch, useSelector } from 'react-redux'
+import { userRegister } from '../redux/actions/authaction'
+import { Link, Navigate } from 'react-router-dom'
+
+interface UserState {
+  email: string
+  password: string
+}
+
 const Signup: FC = () => {
-  const dispatch = useDispatch();
-  const [input, setInput]: any = useState({
-    email: "",
-    password: ""
-  });
-  let user = useSelector((state: any) => state.Auth);
-  let { isAuthenticated } = user;
+  const dispatch = useDispatch()
+  const [input, setInput] = useState<UserState>({
+    email: '',
+    password: '',
+  })
+  let user = useSelector((state: any) => state.Auth)
+  let { isAuthenticated } = user
 
   if (isAuthenticated) {
-    return <Navigate to="/login" replace={true} />;
+    return <Navigate to="/login" replace={true} />
   }
-  const change = (e: any) => {
-    e.preventDefault();
-    setInput({ ...input, [e.target.name]: e.target.value });
-  };
-  const { email, password } = input;
+  const change = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    setInput({ ...input, [e.target.name]: e.target.value })
+  }
+  const { email, password } = input
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
 
-    if (email === "" || password === "") {
-      alert("Please enter all values");
+    if (email === '' || password === '') {
+      alert('Please enter all values')
     } else {
-      console.log({ email, password });
-      setInput({ email: "", password: "" });
-      dispatch(userRegister({ email, password }));
+      console.log({ email, password })
+      setInput({ email: '', password: '' })
+      dispatch(userRegister({ email, password }))
     }
-  };
+  }
   return (
     <Container
       component="main"
       maxWidth="xs"
       style={{
-        marginTop: 150
+        marginTop: 150,
       }}
     >
       <CssBaseline />
@@ -50,7 +56,7 @@ const Signup: FC = () => {
         <Typography
           component="h6"
           variant="h4"
-          style={{ textAlign: "center", marginBottom: 20 }}
+          style={{ textAlign: 'center', marginBottom: 20 }}
         >
           Sign up
         </Typography>
@@ -85,7 +91,7 @@ const Signup: FC = () => {
             </Grid>
           </Grid>
           <Button
-            onClick={(e: any) => handleSubmit(e)}
+            onClick={(e: React.MouseEvent<HTMLElement>) => handleSubmit(e)}
             type="submit"
             fullWidth
             variant="contained"
@@ -96,14 +102,14 @@ const Signup: FC = () => {
           </Button>
           <>
             <p>
-              {" "}
+              {' '}
               Have an Account? <Link to="/login">Login</Link>
             </p>
           </>
         </form>
       </div>
     </Container>
-  );
-};
+  )
+}
 
-export default Signup;
+export default Signup
